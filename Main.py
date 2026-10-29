@@ -13,12 +13,29 @@ def mostrar_cabecera(console):
     console.print("[blue]Programa de organizacion de carpetas[/blue]")
 
 def obtener_extension(nombre_archivo):
-    return
+    ruta_archivo, extension = os.path.splitext(nombre_archivo)
+
+    if not extension:
+        return ruta_archivo, "sin_extension"
+    else:
+        return ruta_archivo, extension
+    
 
 def tamano_legible(tamano_bytes):
-    return
+
+    kb = tamano_bytes // 1024
+    bytes = tamano_bytes % 1024
+
+    mb = kb // 1024
+    kb = kb % 1024
+
+    gb = mb // 1024
+    mb = mb % 1024
+
+    return gb, mb, kb, bytes
 
 def una_dentro_de_otra(ruta_a, ruta_b):
+    
     return
 
 def nombre_disponible(ruta_destino, nombre_archivo):
@@ -43,6 +60,8 @@ crear_destino = False
 console.print("\n[green]Introduzca la ruta de la carpeta de origen [/green]")
 
 ruta_origen = Prompt.ask()
+
+
 
 console.print("\n[green]Introduzca la ruta de la carpeta de destino [/green]")
 
