@@ -100,6 +100,16 @@ def clasificar_carpeta_recursivo(ruta_origen, ruta_destino,historial):
     return bytes_totales
 
 def contar_archivos_recursivo(ruta):
+    
+    contador = 0
+    
+    for archivo in os.listdir(ruta):
+        ruta_archivo = os.path.join(ruta,archivo)
+        
+        if os.path.isdir(ruta_archivo):
+            contador += contar_archivos_recursivo(ruta_archivo)
+        else:
+            contador +1
     return
 
 
