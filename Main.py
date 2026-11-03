@@ -62,13 +62,33 @@ def nombre_disponible(ruta_destino, nombre_archivo):
 
 
 def clasificar_archivo(ruta_origen, nombre_archivo, ruta_destino,historial):
-    return
+# Mueve el archivo a la carpeta/subcarpeta asignada
+    ruta_total = os.path.join(ruta_origen, nombre_archivo)
+    tamano = os.path.getsize(ruta_total)
+
+    extension = obtener_extension(nombre_archivo)
+
+    ruta_subcarpeta = os.path.join(ruta_destino, extension)
+    os.makedirs(ruta_subcarpeta, exist_ok=True)
+
+    nombre = nombre_disponible(ruta_subcarpeta, nombre_archivo)
+    destino = os.path.join(ruta_subcarpeta,nombre)
+
+    shutil.move(ruta_total,destino)
+
+    movimiento_realizado = "Desde la ruta: " + ruta_total + " hasta la ruta: " + destino
+
+    historial.append(movimiento_realizado)
+
+    return tamano
 
 def clasificar_carpeta_recursivo(ruta_origen, ruta_destino,historial):
     return
 
 def contar_archivos_recursivo(ruta):
     return
+
+
 
 mostrar_cabecera(console)
 
