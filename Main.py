@@ -35,8 +35,12 @@ def tamano_legible(tamano_bytes):
     return gb, mb, kb, bytes
 
 def una_dentro_de_otra(ruta_a, ruta_b):
+
+    ruta_absoluta_a = os.path.abspath(ruta_a) + os.sep
+    ruta_absoluta_b = os.path.abspath(ruta_b) + os.sep
     
-    return
+    return ruta_absoluta_a.startswith(ruta_absoluta_b) or ruta_absoluta_b.startswith(ruta_absoluta_a)
+
 
 def nombre_disponible(ruta_destino, nombre_archivo):
     return
