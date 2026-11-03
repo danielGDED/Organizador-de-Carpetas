@@ -76,14 +76,28 @@ def clasificar_archivo(ruta_origen, nombre_archivo, ruta_destino,historial):
 
     shutil.move(ruta_total,destino)
 
-    movimiento_realizado = "Desde la ruta: " + ruta_total + " hasta la ruta: " + destino
+    movimiento_realizado = ruta_total + " -> " + destino
 
     historial.append(movimiento_realizado)
 
     return tamano
 
 def clasificar_carpeta_recursivo(ruta_origen, ruta_destino,historial):
-    return
+# Recorre todas las carpetas desde la ruta asignando donde va cada archivo y obteniendo su peso en bytes
+    bytes_totales = 0
+
+    archivos = os.listdir(ruta_origen)
+    
+    for archivo in archivos:
+        ruta_archivo = os.path.join(ruta_origen, archivo)
+        
+        if os.path.isdir(ruta_archivo):
+            bytes_totales += clasificar_carpeta_recursivo(ruta_origen,ruta_destino,historial)
+        else:
+            bytes_totales += clasificar_archivo(ruta_origen,archivo, ruta_destino,historial)
+            
+
+    return bytes_totales
 
 def contar_archivos_recursivo(ruta):
     return
@@ -97,7 +111,6 @@ crear_destino = False
 console.print("\n[green]Introduzca la ruta de la carpeta de origen [/green]")
 
 ruta_origen = Prompt.ask()
-
 
 
 console.print("\n[green]Introduzca la ruta de la carpeta de destino [/green]")
