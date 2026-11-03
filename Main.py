@@ -113,12 +113,33 @@ def contar_archivos_recursivo(ruta):
     return
 
 def crear_informe(console,movimientos,bytes_totales,archivos_origen,archivos_destino,historial):
-    console.print("\n[green] Clasificacion terminada [/green]")
+    console.print("\n[green] Informe Final [/green]")
     gb, mb, kb, bytes = tamano_legible(bytes_totales)
     
     tamano_total_panel = gb + " GB " + mb+ " MB " + kb + " KB " + bytes + " Bytes"
     
-    return
+    tabla_final = Table(show_header=True, header_style="bold blue")
+    tabla_final.add_column("Concepto")
+    tabla_final.add_column("Valor")
+    
+    tabla_final.add_row("Archivos movidos",str(movimientos))
+    tabla_final.add_row("Tamaño total movido",tamano_total_panel)
+    
+    tabla_final.add_row("Archivos que quedan en el origen",archivos_origen)
+    tabla_final.add_row("Archivos en el destino (con subcarpetas)",archivos_destino)
+    
+    console.print(tabla_final)
+    
+    console.print("\n[green] Movientos realizados [/green]")
+    
+    tabla_movimientos = Table(show_header=True, header_style="bold blue")
+    tabla_movimientos.add_column("Nº")
+    tabla_movimientos.add_column("Origen -> Destino")
+    
+    for i, movimiento in enumerate(historial,1):
+        tabla_movimientos.add_row(str(i), movimiento)
+        
+    console.print(tabla_movimientos)
 
 mostrar_cabecera(console)
 
