@@ -23,6 +23,7 @@ def obtener_extension(nombre_archivo):
 
 def tamano_legible(tamano_bytes):
 
+# Muestra el tamaño del archivo con los bytes
     kb = tamano_bytes // 1024
     bytes = tamano_bytes % 1024
 
@@ -35,6 +36,7 @@ def tamano_legible(tamano_bytes):
     return gb, mb, kb, bytes
 
 def una_dentro_de_otra(ruta_a, ruta_b):
+# Comprueba si una ruta esta dentro de la otra
 
     ruta_absoluta_a = os.path.abspath(ruta_a) + os.sep
     ruta_absoluta_b = os.path.abspath(ruta_b) + os.sep
@@ -43,10 +45,21 @@ def una_dentro_de_otra(ruta_a, ruta_b):
 
 
 def nombre_disponible(ruta_destino, nombre_archivo):
-    return
 
-def nombre_disponible(ruta_destino, nombre_archivo):
-    return
+# Da la ruta del archivo y en caso de que exista crea una nueva
+
+    nueva_ruta = os.path.join(ruta_destino,nombre_archivo)
+
+    if not os.path.exists(nueva_ruta):
+        return nueva_ruta
+    else:
+        nombre, extension = os.path.split(nombre_archivo)
+        contador = 1
+        while os.path.exists(nueva_ruta):
+            nueva_ruta = nombre + "_" + contador + extension
+            
+    return nueva_ruta
+
 
 def clasificar_archivo(ruta_origen, nombre_archivo, ruta_destino,historial):
     return
