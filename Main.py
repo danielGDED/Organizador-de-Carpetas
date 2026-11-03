@@ -112,31 +112,44 @@ def contar_archivos_recursivo(ruta):
             contador += 1
     return
 
-
+def crear_informe(console,movimientos,bytes_totales,archivos_origen,archivos_destino,historial):
+    console.print("\n[green] Clasificacion terminada [/green]")
+    gb, mb, kb, bytes = tamano_legible(bytes_totales)
+    
+    tamano_total_panel = gb + " GB " + mb+ " MB " + kb + " KB " + bytes + " Bytes"
+    
+    return
 
 mostrar_cabecera(console)
 
-crear_destino = False
-
 console.print("\n[green]Introduzca la ruta de la carpeta de origen [/green]")
-
 ruta_origen = Prompt.ask()
 
-
 console.print("\n[green]Introduzca la ruta de la carpeta de destino [/green]")
-
 ruta_destino = Prompt.ask()
 
-if(ruta_origen == os.path.isdir()):
-    if(ruta_destino == os.path.isdir()):
-        pass
-    elif(os.path.exists(ruta_destino)):
-        crear_destino = True # PARA DESPUES CREAR ARCHIVO
+if(os.path.isdir(ruta_origen) and os.path.exists(ruta_origen)):
+    
+    destino_valido = True
+    if not (os.path.isdir(ruta_destino)):
+        destino_valido = False
+        console.print(Panel("[red]La carpeta de destino no es una carpeta[/red]"))
 
-    if(ruta_destino == ruta_origen or una_dentro_de_otra(ruta_origen,ruta_destino)):
-        numero = 1
+    elif(ruta_destino == ruta_origen or una_dentro_de_otra(ruta_origen,ruta_destino)):
+        destino_valido = False
+        console.print(Panel("[red]La carpeta de origen no existe[/red]"))
+        
+    if destino_valido:
+        historial = []
+        bytes_totales = clasificar_carpeta_recursivo(ruta_origen,ruta_destino, historial)
 
-
+        movimientos = len(historial)
+        
+        archivos_origen = contar_archivos_recursivo(ruta_origen)
+        archivos_destino = contar_archivos_recursivo(ruta_destino)
+        
+        console.print("\n[green] Clasificacion terminada [/green]")
+        crear_informe(console,movimientos,bytes_totales,archivos_origen,archivos_destino,historial)
 
 else:
     console.print(Panel("[red]La carpeta de origen no existe[/red]"))
