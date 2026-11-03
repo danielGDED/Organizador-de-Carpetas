@@ -18,8 +18,7 @@ def obtener_extension(nombre_archivo):
     if not extension:
         return ruta_archivo, "sin_extension"
     else:
-        return ruta_archivo, extension
-    
+        return ruta_archivo, extension.lstrip('.').tolower()
 
 def tamano_legible(tamano_bytes):
 
@@ -57,6 +56,7 @@ def nombre_disponible(ruta_destino, nombre_archivo):
         contador = 1
         while os.path.exists(nueva_ruta):
             nueva_ruta = nombre + "_" + contador + extension
+            contador += 1
             
     return nueva_ruta
 
@@ -92,7 +92,7 @@ def clasificar_carpeta_recursivo(ruta_origen, ruta_destino,historial):
         ruta_archivo = os.path.join(ruta_origen, archivo)
         
         if os.path.isdir(ruta_archivo):
-            bytes_totales += clasificar_carpeta_recursivo(ruta_origen,ruta_destino,historial)
+            bytes_totales += clasificar_carpeta_recursivo(ruta_archivo,ruta_destino,historial)
         else:
             bytes_totales += clasificar_archivo(ruta_origen,archivo, ruta_destino,historial)
             
@@ -108,8 +108,8 @@ def contar_archivos_recursivo(ruta):
         
         if os.path.isdir(ruta_archivo):
             contador += contar_archivos_recursivo(ruta_archivo)
-        else:
-            contador +1
+        elif os.path.isfile(ruta_archivo):
+            contador += 1
     return
 
 
